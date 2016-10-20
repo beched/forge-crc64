@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 
 # CRC-64-ECMA polynomial
@@ -21,7 +22,7 @@ def crc64(s, crc=0):
     return crc
 
 def help():
-    print 'Usage: ./%s CRC64-sum [prefix]' % sys.argv[0]
+    print 'Usage: %s CRC64-sum [prefix]' % sys.argv[0]
     quit()
 
 def forge_crc64(to_forge, header):
@@ -44,7 +45,7 @@ def forge_crc64(to_forge, header):
     # Build CRC
     result = ''
     header_crc = crc64(header)
-    cur_high_bits = header_crc >> 56
+    cur_high_bits = header_crc & 0xFF
 
     for rev_byte in rev_crc[::-1]:
         recovered = table_forward.index(table_reverse[rev_byte]) ^ cur_high_bits
@@ -54,8 +55,6 @@ def forge_crc64(to_forge, header):
 
     print 'STR:', result.encode('hex')
     print 'CRC:', hex(crc64(result)).lstrip('0x').rstrip('L')
-    print 'CRC:', hex(crc64('\x80')).lstrip('0x').rstrip('L')
-    #print 'OLD:', hex(to_forge)
 
 
 if __name__ == '__main__':
