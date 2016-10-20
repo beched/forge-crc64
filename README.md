@@ -12,5 +12,4 @@ Example:
 > python forge_crc64.py 0x3d86b93fd6454496 asd
 STR: 61736402abeafa467430a0
 CRC: 3d86b93fd6454496
-CRC: f80d3ed95322a1c3
 ```
